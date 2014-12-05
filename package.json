@@ -1,0 +1,7 @@
+{
+	"name": "srt-parse",
+	"version": "0.0.1",
+	"dependencies": {
+		"ap": "*"
+	}
+}
