@@ -45,15 +45,17 @@ function createSrtData(memo, lines) {
 		return memo;
 	}
 
-	var number = parseInt(lines[0], 10);
+	var tmpMemo = {};
 	var times = lines[1].split(' --> ');
-	var startTime = parseTime(times[0]);
-	var endTime = parseTime(times[1]);
-	var text = lines.slice(2).join('\n');
 
-	memo[number] = {
-		number: number, startTime: startTime, endTime: endTime, text: text
-	};
+	if (times.length >= 2)
+		tmpMemo.startTime = parseTime(times[0]);
+		tmpMemo.endTime = parseTime(times[1]);
+
+	tmpMemo.number = parseInt(lines[0], 10);
+	tmpMemo.text = lines.slice(2).join('\n');
+
+	memo[tmpMemo.number] = tmpMemo;
 
 	return memo;
 }
