@@ -60,6 +60,9 @@ function createSrtData(memo, lines) {
 
 function parseTime(timeString) {
 	var chunks = timeString.split(':');
+
+	if (chunks.length <= 1) return false;
+
 	var secondChunks = chunks[2].split(',');
 	var hours = parseInt(chunks[0], 10);
 	var minutes = parseInt(chunks[1], 10);
