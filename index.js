@@ -6,6 +6,7 @@ var fs = require('fs');
 var partial = require('ap').partial;
 
 srt.fromString = fromString;
+srt.parseTime = parseTime;
 module.exports = srt;
 
 function srt(fileName, callback) {
@@ -61,10 +62,10 @@ function createSrtData(memo, lines) {
 }
 
 function parseTime(timeString) {
+	if (!timeString) return false;
+	if(timeString.indexOf(':') === -1) return false;
+
 	var chunks = timeString.split(':');
-
-	if (chunks.length <= 1) return false;
-
 	var secondChunks = chunks[2].split(',');
 	var hours = parseInt(chunks[0], 10);
 	var minutes = parseInt(chunks[1], 10);

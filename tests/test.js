@@ -4,7 +4,7 @@ var srt = require('../index.js');
 
 var validSrtFileString = fs.readFileSync(__dirname+'/fixtures/valid.srt', 'utf8');
 
-test('From string test - valid SRT file', function (t) {
+test('fromString: Valid SRT file', function (t) {
 	t.plan(1);
 	var srtObject = srt.fromString(validSrtFileString);
 
@@ -40,4 +40,41 @@ test('From string test - valid SRT file', function (t) {
 			text: 'Why?'
 		}
 	});
+});
+
+test('parseTime: Passing valid time', function (t) {
+	t.plan(1);
+	var srtObject = srt.parseTime('00:56:02,240');
+
+	t.deepEqual(srtObject, 3362240);
+});
+
+// @todo @test: Make this test pass
+test('parseTime: Passing INvalid time', function (t) {
+	t.plan(1);
+	var srtObject = srt.parseTime('0a:56:02,240');
+
+	t.deepEqual(srtObject, false);
+});
+
+test('parseTime: Passing undefined', function (t) {
+	t.plan(1);
+	var srtObject = srt.parseTime(undefined);
+
+	t.deepEqual(srtObject, false);
+});
+
+test('parseTime: Passing html', function (t) {
+	t.plan(1);
+	var srtObject = srt.parseTime('<font color="#00ffff">kucing_gaul  (Nakashima_Tadayoshi)</font>');
+
+	t.deepEqual(srtObject, false);
+});
+
+// @todo @test: Make this test pass
+test('parseTime: Passing text with semicolon', function (t) {
+	t.plan(1);
+	var srtObject = srt.parseTime('some: text!');
+
+	t.deepEqual(srtObject, false);
 });
